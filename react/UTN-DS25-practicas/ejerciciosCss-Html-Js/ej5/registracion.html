@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Usuario - Yenny / El Ateneo</title>
+    <!-- Se asume que tu archivo de estilos externo 'styles.css' manejará el diseño -->
+    <link rel="stylesheet" href="./css-img/reg.css">
+</head>
+<body>
+
+    <header>
+        <h1>Regístrate en Yenny / El Ateneo</h1>
+        <p>Crea tu cuenta para disfrutar de todos los beneficios.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Datos Personales</h2>
+            <form action="#" method="post">
+                <p>
+                    <label for="nombre">Nombre:</label><br>
+                    <input type="text" id="nombre" name="nombre" required>
+                </p>
+                <p>
+                    <label for="apellido">Apellido:</label><br>
+                    <input type="text" id="apellido" name="apellido" required>
+                </p>
+                <p>
+                    <label for="fechaNacimiento">Fecha de Nacimiento:</label><br>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+                </p>
+                <p>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required>
+                </p>
+                <p>
+                    <label for="contrasena">Contraseña:</label><br>
+                    <input type="password" id="contrasena" name="contrasena" required>
+                </p>
+
+                <p>
+                    <label>Sexo:</label><br>
+                    <input type="radio" id="sexoMasculino" name="sexo" value="masculino">
+                    <label for="sexoMasculino">Masculino</label><br>
+                    <input type="radio" id="sexoFemenino" name="sexo" value="femenino">
+                    <label for="sexoFemenino">Femenino</label><br>
+                    <input type="radio" id="sexoOtro" name="sexo" value="otro">
+                    <label for="sexoOtro">Otro</label>
+                </p>
+
+                <p>
+                    <label for="temaFavorito">Tema Favorito:</label><br>
+                    <select id="temaFavorito" name="temaFavorito">
+                        <option value="">Selecciona un tema</option>
+                        <option value="ciencia_ficcion">Ciencia Ficción</option>
+                        <option value="historia">Historia</option>
+                        <option value="novela">Novela</option>
+                        <option value="fantasia">Fantasía</option>
+                        <option value="aventura">Aventura</option>
+                        <option value="biografia">Biografía</option>
+                        <option value="poesia">Poesía</option>
+                        <option value="ensayo">Ensayo</option>
+                        <option value="cocina">Cocina</option>
+                        <option value="infantil">Infantil</option>
+                    </select>
+                </p>
+                
+                <p>
+                    <input type="submit" value="Registrarse">
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <a id="ini" href="index.html">Inicio</a>
+
+    <div id="Pie">
+        <a href="https://www.instagram.com/yenny_elateneo/?hl=es-la">Instagram</a> | <a href="https://www.facebook.com/yenny.elateneo">Facebook</a> | <a href="https://www.youtube.com/quidcanalcultural">Youtoube</a>
+        <p>Copyright Yenny - El Ateneo - 30654386192 - 2025. Todos los derechos reservados.<br><a href="#">Términos y condiciones</a>
+        </p>
+    </div>
+
+</body>
+</html>
