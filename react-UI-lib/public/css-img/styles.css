@@ -1,0 +1,110 @@
+*{  /*SIEMPRE*/
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color: rgb(231, 227, 227);
+}
+
+
+li{
+    display: inline;
+    margin:15px;
+}
+
+#cabecera{
+    background-image: url(imgBackground.jpg);
+    text-shadow: 10px 10px 10px black;
+    font-weight: 800;
+    font-size: 20px;
+    height: 50px;
+    color: white;
+    text-align: center;
+}
+#logo{
+    width: 60px;
+    height: 50px;
+    float: left;
+}
+
+#menu{
+    background-color: #333;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    color: white;
+}
+
+#menu a{
+    color:white
+}
+
+#contenido{
+    justify-content: center;
+    padding: 30px;
+
+}
+
+.tema-destacado{
+    border: 1px solid grey;
+    padding: 20px;
+    background-color: white;
+    margin: 20px;
+}
+.tema-destacado h2 a{
+    color: #007bbb;
+    text-decoration: none; /*saco subrayado*/
+}
+
+.libro-destacado{
+    text-align: center;
+    
+}
+
+.libro-destacado img{
+    width: 150px;
+}
+
+.libro-dest h3{
+    text-transform: uppercase;
+}
+
+#Pie{
+    background-color: #333;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    width: 100%;
+}
+
+
+.libros{
+    border: 3px solid black;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    margin: 3rem;
+    text-align: left;
+    justify-content: center;
+    height: 200px;
+    background-color: #a7a3a3;
+}
+
+.libros img{
+    width: 140px;
+    height: 183px;
+    padding: 1rem;
+    border-radius: 1.5rem;
+    float: right;
+}
+
+#ini { 
+    text-decoration: none;
+    color: hsl(201, 100%, 37%);
+    font-size: 20px;
+    display: grid;
+    place-items: left;
+    margin: 2rem 2.7rem;
+}
