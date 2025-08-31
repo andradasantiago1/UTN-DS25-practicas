@@ -1,0 +1,6 @@
+export enum Categoria {
+    HISTORIA = 'HISTORIA',
+    FANTASIA = 'FANTASIA',
+    NOVELA = 'NOVELA',
+    CIENCIA_FICCION = 'CIENCIA_FICCION',
+}

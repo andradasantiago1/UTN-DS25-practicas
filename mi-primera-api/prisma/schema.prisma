@@ -15,12 +15,35 @@ datasource db {
 }
 
 model Book {
-  id        Int      @id @default(autoincrement())
-  imagen    String   
-  titulo    String   
-  autor     String   
-  categoria String   
-  destacado Boolean  
-  createdAt DateTime @default(now()) 
-  updatedAt DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  imagen      String?
+  titulo      String
+  autor       String
+  categoria   Categoria
+  destacado   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  userId      Int?
+  user        User?     @relation(fields: [userId], references: [id])
+  
+  @@map("book")
+}
+
+enum Categoria {
+  HISTORIA
+  FANTASIA
+  NOVELA
+  CIENCIA_FICCION
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String   
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  books       Book[]
+  
+  @@map("user")
 }
