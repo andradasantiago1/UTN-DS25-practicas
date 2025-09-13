@@ -20,7 +20,7 @@ function CustomNavbar() {
                         <Nav.Link as={Link} to="/category/historia">Historia</Nav.Link>
                         <Nav.Link as={Link} to="/category/novelas">Novelas</Nav.Link>
                         <Nav.Link as={Link} to="/category/fantasia">Fantasía</Nav.Link>
-                        <Nav.Link as={Link} to="/registracion">Registración</Nav.Link>
+                        <Nav.Link as={Link} to="/login">Login</Nav.Link>
                         <Nav.Link as={Link} to="/contacto">Contacto</Nav.Link>
                         <Nav.Link as={Link} to="/add-book">Agregar Libro</Nav.Link>
                     </Nav>
