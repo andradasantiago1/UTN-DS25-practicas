@@ -8,15 +8,16 @@ import { handleError } from './middlewares/error.middleware';
 import { logRequest } from './middlewares/logger.middleware';
 
 
-dotenv.config(); 
+dotenv.config();
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const corsOptions = { 
-origin: process.env.FRONTEND_URL || 'http://localhost:5173',
-credentials: true,
-methods: ['GET', 'POST', 'PUT', 'DELETE' , 'OPTIONS' ],
-allowedHeaders: ['Content-Type', 'Authorization']
+const corsOptions = {
+    origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE' , 'OPTIONS' ],
+    allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(cors(corsOptions));
