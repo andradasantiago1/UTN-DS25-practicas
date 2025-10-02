@@ -34,7 +34,7 @@ export async function getBookById(id: number): Promise<Book> {
 	if (!book) {
 		const error = new Error('Libro no encontrado') as any;
 		error.statusCode = 404;
-        throw error;
+		throw error;
 	}
 	return book;
 }
@@ -46,23 +46,23 @@ export async function createBook(data: CreateBookRequest): Promise<Book> {
 	if (!userExists) {
 		const error = new Error('El usuario no existe') as any;
 		error.statusCode = 404;
-        throw error;
+		throw error;
 	}
+	
+	const categoriaParaPrisma = data.categoria.replace(/\s+/g, '_'); // reemplazo espacio por guion bajo, para q se adecue con lo que espera la BD
+
 	return prisma.book.create({
 		data: {
 			imagen: data.imagen,
 			titulo: data.titulo,
 			autor: data.autor,
-			categoria: data.categoria,
+			categoria: categoriaParaPrisma as any, 
 			destacado: data.destacado,
 			userId: data.userId
 		},
 		include: { user: true }
 	});
 }
-
-import { Book, UpdateBookRequest } from '../types/book.types';
-import prisma from '../config/prisma';
 
 export async function updateBook(id: number, updateData: UpdateBookRequest): Promise<Book> {
 	// Verificar si se intenta actualizar el userId y si existe
@@ -72,8 +72,8 @@ export async function updateBook(id: number, updateData: UpdateBookRequest): Pro
 		});
 		if (!userExists) {
 			const error = new Error('El usuario no existe' ) as any;
-            error.statusCode = 404;
-            throw error;
+			error.statusCode = 404;
+			throw error;
 		}
 	}
 	try {
@@ -83,7 +83,7 @@ export async function updateBook(id: number, updateData: UpdateBookRequest): Pro
 				...(updateData.imagen !== undefined ? { imagen: updateData.imagen } : {}),
 				...(updateData.titulo !== undefined ? { titulo: updateData.titulo } : {}),
 				...(updateData.autor !== undefined ? { autor: updateData.autor } : {}),
-				...(updateData.categoria !== undefined ? { categoria: updateData.categoria } : {}),
+				...(updateData.categoria !== undefined ? { categoria: updateData.categoria.replace(/\s+/g, '_') as any } : {}), //reemplazo el espacio por un guion bajo, para que se adecue a lo que espera la BD
 				...(updateData.destacado !== undefined ? { destacado: updateData.destacado } : {}),
 				...(updateData.userId !== undefined ? { userId: updateData.userId } : {}),
 			},
@@ -92,8 +92,8 @@ export async function updateBook(id: number, updateData: UpdateBookRequest): Pro
 	} catch (e: any) {
 		if (e.code === 'P2025') {
 			const error = new Error('Libro no encontrado' ) as any;
-            error.statusCode = 404;
-            throw error;
+			error.statusCode = 404;
+			throw error;
 		}
 		throw e;
 	}
@@ -107,11 +107,9 @@ export async function deleteBook(id: number): Promise<void> {
 	} catch (e: any) {
 		if (e.code === 'P2025') {
 			const error = new Error('Libro no encontrado' ) as any;
-            error.statusCode = 404;
-            throw error;
+			error.statusCode = 404;
+			throw error;
 		}
 		throw e;
 	}
 }
-
-
