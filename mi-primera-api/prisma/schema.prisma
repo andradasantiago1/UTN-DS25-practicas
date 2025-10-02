@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -15,18 +9,31 @@ datasource db {
 }
 
 model Book {
-  id          Int       @id @default(autoincrement())
-  imagen      String?
-  titulo      String
-  autor       String
-  categoria   Categoria
-  destacado   Boolean   @default(false)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  userId      Int?
-  user        User?     @relation(fields: [userId], references: [id])
-  
+  id        Int       @id @default(autoincrement())
+  imagen    String?
+  titulo    String
+  autor     String
+  categoria Categoria
+  destacado Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    Int?
+  user      User?     @relation(fields: [userId], references: [id])
+
   @@map("book")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role      Role     @default(USER)
+  books     Book[]
+
+  @@map("user")
 }
 
 enum Categoria {
@@ -39,17 +46,4 @@ enum Categoria {
 enum Role {
   USER
   ADMIN
-}
-
-model User {
-  id          Int      @id @default(autoincrement())
-  email       String   @unique
-  password    String   
-  name        String
-  role        Role     @default(USER)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  books       Book[]
-  
-  @@map("user")
 }
