@@ -1,4 +1,4 @@
-import { useUsuario } from '../context/UsuarioContext' ;
+import { useUsuario } from '../contexts/UsuarioContext' ;
 
 function Perfil() {
     const { usuario, setUsuario } = useUsuario ();

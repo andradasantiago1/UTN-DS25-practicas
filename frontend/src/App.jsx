@@ -1,35 +1,60 @@
-// src/App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import { UsuarioProvider } from './contexts/UsuarioContext'; 
+import { PrivateRoute } from './components/PrivateRoute';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import ContactPage from './pages/ContactPage';
-import CategoryPage from './pages/CategoryPage';
 import CatalogPage from './pages/CatalogPage';
-import AddBookForm from './components/AddBookForm'; 
-import initialBooksData from './data/booksData';
+import ContactPage from './pages/ContactPage';
+import LoginPage from './pages/LoginPage';
+import './App.css';
+import ListaDeUsuarios from './components/ListaDeUsuarios'; 
 
 function App() {
-  const [books, setBooks] = useState(initialBooksData);
-  const handleAddBook = (newBook) => {
-    const newId = books.length > 0 ? Math.max(...books.map(b => b.id)) + 1 : 1;
-    setBooks(prevBooks => [...prevBooks, { ...newBook, id: newId }]);
-  };
-
-  return (
-    <Layout books={books} setBooks={setBooks}>
-      <Routes>
-        <Route path="/" element={<HomePage books={books} />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/contacto" element={<ContactPage />} />
-        <Route path="/category/:categoryName" element={<CategoryPage books={books} />} />
-        <Route path="/catalogo" element={<CatalogPage />} />
-        <Route path="/add-book" element={<AddBookForm onAddBook={handleAddBook} />} />
-      </Routes>
-    </Layout>
-  );
+	return (
+		<BrowserRouter>
+			<AuthProvider>
+				<UsuarioProvider> 
+					<Layout>
+						<Routes>
+							<Route path="/" element={<HomePage />} />
+							<Route path="/login" element={<LoginPage />} />
+							{/* Ruta protegida - usuarios logueados */}
+							<Route
+								path="/contact"
+								element={
+									<PrivateRoute>
+										<ContactPage />
+									</PrivateRoute>
+								}
+							/>
+							{/* Ruta protegida - solo rol ADMIN */}
+							<Route
+								path="/catalog"
+								element={
+									<PrivateRoute requiredRole="ADMIN">
+										<CatalogPage />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/admin/users"
+								element={
+									<PrivateRoute requiredRole="ADMIN">
+										<ListaDeUsuarios /> 
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/unauthorized"
+								element={<div>No tienes permisos para ver esta página</div>}
+							/>
+						</Routes>
+					</Layout>
+				</UsuarioProvider>
+			</AuthProvider>
+		</BrowserRouter>
+	);
 }
 
 export default App;

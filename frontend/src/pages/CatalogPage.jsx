@@ -6,7 +6,9 @@ function CatalogPage() {
 	const { data, loading, error } = useFetch(url, {}, { requireAuth: true });
 	if (loading) return <p>Cargando...</p>;
 	if (error) return <p>Error: {error.message}</p>;
-	const books = data || []; //ahora 'data' ya es el array de libros
+
+	const books = data?.data || []; 
+
 	return (
 		<div className="catalog-page">
 			<h2>📚 Catálogo Completo</h2>

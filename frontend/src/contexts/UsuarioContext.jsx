@@ -12,7 +12,6 @@ export function UsuarioProvider ({ children }) {
         </UsuarioContext.Provider >
     );
 }
-
 export function useUsuario () {
     const contexto = useContext (UsuarioContext );
     if (!contexto ) {

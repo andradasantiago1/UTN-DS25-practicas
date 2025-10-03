@@ -1,4 +1,4 @@
-import { useUsuario } from '../context/UsuarioContext' ;
+import { useUsuario } from '../contexts/UsuarioContext' ;
 import Perfil from '../components/Perfil' ; 
 
 function HomePage () {

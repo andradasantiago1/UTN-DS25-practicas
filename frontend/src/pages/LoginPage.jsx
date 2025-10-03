@@ -1,70 +1,66 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { setToken } from "../helpers/auth";
-import { Container, Form, Button, Card, Row, Col } from 'react-bootstrap';
+import { loginSchema } from "../validations/loginSchema";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const {
+		register,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		setError
+	} = useForm({
+		resolver: yupResolver(loginSchema)
+	});
 
-	async function handleSubmit(e) {
-		e.preventDefault();
+	async function onSubmit(data) {
 		try {
 			const res = await fetch("http://localhost:3000/api/auth/login", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email, password }),
+				body: JSON.stringify(data)
 			});
-			if (!res.ok) {
-				throw new Error("Error en login");
-			}
-			const { data } = await res.json();
-			setToken(data.token);
-			navigate("/catalogo");
+			if (!res.ok) throw new Error("Error en login");
+			const { data: responseData } = await res.json();
+			setToken(responseData.token);
+			navigate("/catalog");
 		} catch (err) {
-			alert("Login fallido");
+			console.log(err);
+			setError("root", {
+				type: "manual",
+				message: "Credenciales inválidas"
+			});
 		}
 	}
-
 	return (
-		<Container className="d-flex justify-content-center align-items-center" style={{ minHeight: "80vh" }}>
-			<Row className="justify-content-center w-100">
-				<Col md={6}>
-					<Card className="p-4 shadow">
-						<Card.Body>
-							<h2 className="text-center mb-4">Login</h2>
-							<Form onSubmit={handleSubmit}>
-								<Form.Group className="mb-3" controlId="formBasicEmail">
-									<Form.Label>Email</Form.Label>
-									<Form.Control
-										type="email"
-										value={email}
-										onChange={(e) => setEmail(e.target.value)}
-										placeholder="Ingrese su email"
-										required
-									/>
-								</Form.Group>
-
-								<Form.Group className="mb-3" controlId="formBasicPassword">
-									<Form.Label>Contraseña</Form.Label>
-									<Form.Control
-										type="password"
-										value={password}
-										onChange={(e) => setPassword(e.target.value)}
-										placeholder="Ingrese su contraseña"
-										required
-									/>
-								</Form.Group>
-
-								<Button variant="primary" type="submit" className="w-100">
-									Ingresar
-								</Button>
-							</Form>
-						</Card.Body>
-					</Card>
-				</Col>
-			</Row>
-		</Container>
+		<form onSubmit={handleSubmit(onSubmit)} className="login-form">
+			<h2>Login</h2>
+			<div className="form-group">
+				<input
+					{...register("email")}
+					placeholder="Email"
+					className={errors.email ? "input-error" : ""}
+				/>
+				{errors.email && (
+					<span className="field-error">{errors.email.message}</span>
+				)}
+			</div>
+			<div className="form-group">
+				<input
+					{...register("password")}
+					type="password"
+					placeholder="Password"
+					className={errors.password ? "input-error" : ""}
+				/>
+				{errors.password && (
+					<span className="field-error">{errors.password.message}</span>
+				)}
+			</div>
+			<button type="submit" disabled={isSubmitting}>
+				{isSubmitting ? "Ingresando..." : "Ingresar"}
+			</button>
+		</form>
 	);
 }
