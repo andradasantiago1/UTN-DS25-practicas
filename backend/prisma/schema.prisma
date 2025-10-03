@@ -1,49 +1,49 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+	provider = "prisma-client-js"
+	output 	 = "../src/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+	provider = "postgresql"
+	url 	 = env("DATABASE_URL")
 }
 
 model Book {
-  id        Int       @id @default(autoincrement())
-  imagen    String?
-  titulo    String
-  autor     String
-  categoria Categoria
-  destacado Boolean   @default(false)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  userId    Int?
-  user      User?     @relation(fields: [userId], references: [id])
+	id 			Int 	  @id @default(autoincrement())
+	imagen 		String?
+	titulo 		String
+	autor 		String
+	categoria 	Categoria
+	destacado 	Boolean @default(false)
+	createdAt 	DateTime @default(now())
+	updatedAt 	DateTime @updatedAt @default(now()) 
+	userId 		Int?
+	user 		User? 	@relation(fields: [userId], references: [id])
 
-  @@map("book")
+	@@map("book")
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  password  String
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  role      Role     @default(USER)
-  books     Book[]
+	id 			Int 	@id @default(autoincrement())
+	email 		String 	@unique
+	password 	String
+	name 		String
+	createdAt 	DateTime @default(now())
+	updatedAt 	DateTime @updatedAt @default(now()) 
+	role 		Role 	@default(USER)
+	books 		Book[]
 
-  @@map("user")
+	@@map("user")
 }
 
 enum Categoria {
-  HISTORIA
-  FANTASIA
-  NOVELA
-  CIENCIA_FICCION
+	HISTORIA
+	FANTASIA
+	NOVELA
+	CIENCIA_FICCION
 }
 
 enum Role {
-  USER
-  ADMIN
+	USER
+	ADMIN
 }

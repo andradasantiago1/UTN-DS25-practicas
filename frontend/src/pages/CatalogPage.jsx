@@ -2,11 +2,11 @@ import { useFetch } from '../hooks/useFetch';
 import BookCard from '../components/BookCard';
 
 function CatalogPage() {
-	const url = 'http://localhost:3000/api/books?limit=10';
+	const url = '/api/books?limit=10';
 	const { data, loading, error } = useFetch(url, {}, { requireAuth: true });
 	if (loading) return <p>Cargando...</p>;
 	if (error) return <p>Error: {error.message}</p>;
-	const books = data?.books || [];
+	const books = data || []; //ahora 'data' ya es el array de libros
 	return (
 		<div className="catalog-page">
 			<h2>📚 Catálogo Completo</h2>
