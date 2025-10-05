@@ -19,11 +19,25 @@ function AddBookPage() {
 
 			if (res.status === 401) {
 				console.error("No autorizado. Token inválido o expirado.");
+				alert("No autorizado. Por favor, vuelve a iniciar sesión.");
 				return;
 			}
 			
 			if (!res.ok) {
-				throw new Error(`Error al crear el libro: ${res.status} ${res.statusText}`);
+				// Conservamos el manejo de errores robusto para obtener detalles del 400
+				let errorMessage = `Error al crear el libro: ${res.status} ${res.statusText}`;
+				try {
+					const clonedRes = res.clone();
+					const errorResult = await clonedRes.json();
+					errorMessage = errorResult.message || errorResult.error || JSON.stringify(errorResult);
+				} catch (e) {
+					try {
+						errorMessage += ": " + (await res.text());
+					} catch (textError) {
+						// Si todo falla, se mantiene el mensaje HTTP.
+					}
+				}
+				throw new Error(errorMessage); 
 			}
 			
 			const result = await res.json();
@@ -32,7 +46,7 @@ function AddBookPage() {
 			
 		} catch (error) {
 			console.error("Error en la petición de agregar libro:", error);
-			alert(`Fallo al agregar libro: ${error.message}`);
+			alert(`Fallo al agregar libro: ${error.message}`); 
 		}
 	};
 

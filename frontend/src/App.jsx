@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import { UsuarioProvider } from './contexts/UsuarioContext'; 
+import { UsuarioProvider } from './contexts/UsuarioContext';
 import { PrivateRoute } from './components/PrivateRoute';
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
@@ -8,13 +8,14 @@ import CatalogPage from './pages/CatalogPage';
 import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import './App.css';
-import ListaDeUsuarios from './components/ListaDeUsuarios'; 
+import ListaDeUsuarios from './components/ListaDeUsuarios';
+import AddBookPage from './pages/AddBookPage';
 
 function App() {
 	return (
 		<BrowserRouter>
 			<AuthProvider>
-				<UsuarioProvider> 
+				<UsuarioProvider>
 					<Layout>
 						<Routes>
 							<Route path="/" element={<HomePage />} />
@@ -38,10 +39,18 @@ function App() {
 								}
 							/>
 							<Route
+								path="/admin/books"
+								element={
+									<PrivateRoute requiredRole="ADMIN">
+										<AddBookPage />
+									</PrivateRoute>
+								}
+							/>
+							<Route
 								path="/admin/users"
 								element={
 									<PrivateRoute requiredRole="ADMIN">
-										<ListaDeUsuarios /> 
+										<ListaDeUsuarios />
 									</PrivateRoute>
 								}
 							/>
