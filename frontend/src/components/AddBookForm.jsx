@@ -52,7 +52,6 @@ function AddBookForm({ onAddBook }) {
             bookDataToSend.imagen = newBookData.imagen.trim();
         }
 
-        // AGREGAR ESTA LÍNEA
         console.log("Datos del libro a enviar:", bookDataToSend);
         
         onAddBook(bookDataToSend);
@@ -104,7 +103,7 @@ function AddBookForm({ onAddBook }) {
             >
                 <option value="">Selecciona una categoría...</option>
                 <option value="FANTASIA">Fantasia</option> 
-                <option value="CIENCIA_FICCION">Ciencia Ficción</option> 
+                <option value="CIENCIA FICCION">Ciencia Ficción</option>  
                 <option value="HISTORIA">Historia</option> 
                 <option value="NOVELA">Novela</option> 
             </select>

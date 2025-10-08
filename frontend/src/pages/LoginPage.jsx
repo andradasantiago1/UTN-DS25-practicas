@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { setToken } from "../helpers/auth";
 import { loginSchema } from "../validations/loginSchema";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function LoginPage() {
 	const navigate = useNavigate();
+	const { login } = useAuth();
 	const {
 		register,
 		handleSubmit,
@@ -17,15 +18,13 @@ export default function LoginPage() {
 
 	async function onSubmit(data) {
 		try {
-			const res = await fetch("http://localhost:3000/api/auth/login", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(data)
-			});
-			if (!res.ok) throw new Error("Error en login");
-			const { data: responseData } = await res.json();
-			setToken(responseData.token);
-			navigate("/catalog");
+			// llama funcion login del authContext con email y password
+			const result = await login(data.email, data.password); // usa la función login del contexto
+
+			if (!result.success) {
+				throw new Error(result.error || "Error en login");
+			}
+
 		} catch (err) {
 			console.log(err);
 			setError("root", {
