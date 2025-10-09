@@ -20,25 +20,25 @@ export const Searchbar = ({ initialSearchValue = '', onSearch }) => {
         };
 
     return (
-    <div className="input-group mb-3">
-        <input
-            type="text"
-            className="form-control"
-            placeholder="Buscar libro por título o autor..."
-            aria-label="Buscar libro"
-            aria-describedby="button-addon2"
-            value={searchValue}
-            onChange={handleInputChange}
-            onKeyDown={handleKeyDown}
-        />
-        <button
-            className="btn btn-outline-secondary"
-            type="button"
-            id="button-addon2"
-            onClick={handleSearchClick}>Buscar
-        </button>
-        </div>
-    );
+		<div className="input-group">
+			<input
+				type="text"
+				className="form-control"
+				placeholder="Buscar libro por título o autor..."
+				aria-label="Buscar libro"
+				aria-describedby="button-addon2"
+				value={searchValue}
+				onChange={handleInputChange}
+				onKeyDown={handleKeyDown}
+			/>
+			<button
+				className="btn btn-outline-secondary"
+				type="button"
+				id="button-addon2"
+				onClick={handleSearchClick}>Buscar
+			</button>
+		</div>
+	);
 };
 
 export default Searchbar;

@@ -30,6 +30,15 @@ export async function getBookById(req: Request, res: Response, next: NextFunctio
 	}
 }
 
+export const getFeaturedBooks = async (req: any, res: any, next: any) => {
+	try	{
+		const books = await bookService.getFeaturedBooks();
+		res.json(books);
+	}	catch (error) {
+		next(error);
+	}
+};
+
 export async function createBook(req: Request, res: Response, next: NextFunction) {
 	try {
 		const userId = (req as any).user?.id || (req as any).userId; 

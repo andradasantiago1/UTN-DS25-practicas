@@ -1,70 +1,41 @@
-import { AppBar, Toolbar, Typography, Container, Box, Button } from '@mui/material';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { Container } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
+import Header from './Header'; 
+import Footer from './Footer';
+import Navbar from './Navbar';
+import Searchbar from './Searchbar';
 
 function Layout({ children }) {
 	const navigate = useNavigate();
-	const { isAuthenticated, isAdmin, user, logout } = useAuth();
-	const handleLogout = () => {
-		logout();
-		navigate('/');
+	const location = useLocation();
+
+	const handleSearch = (query) => {
+		if (query) {
+			navigate(`/search?q=${query}`); 
+		}
 	};
+
+	const pathsToHideSearch = ['/admin/users', '/admin/books', '/contact', '/', '/login'];
+	const shouldHideSearch = pathsToHideSearch.includes(location.pathname);
+	const isAdministrativeRoute = location.pathname.startsWith('/admin');
+	const shouldShowSearch = !shouldHideSearch && !isAdministrativeRoute;
+	
 	return (
 		<>
-			<AppBar position="static">
-				<Toolbar>
-					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						📚 Mi Librería Digital
-					</Typography>
-                    {/*enlaces publicos */}
-					<Button color="inherit" component={RouterLink} to="/">
-						🏠 Inicio
-					</Button>
-					{isAuthenticated && (
-						<Button color="inherit" component={RouterLink} to="/contact">
-							📧 Contacto
-						</Button>
-					)}
-					{isAdmin && (
-						<>
-							<Button color="inherit" component={RouterLink} to="/catalog">
-								📖 Catálogo
-							</Button>
-							<Button color="inherit" component={RouterLink} to="/admin/books">
-								➕ Agregar Libro
-							</Button>
-							<Button color="inherit" component={RouterLink} to="/admin/users">
-								👥 Usuarios
-							</Button>
-						</>
-					)}
-					{isAuthenticated ? (
-						<>
-							<Typography sx={{ mx: 2 }}>
-								{user?.email}
-							</Typography>
-							<Button color="inherit" onClick={handleLogout}>
-								🚪 Logout
-							</Button>
-						</>
-					) : (
-						<Button color="inherit" component={RouterLink} to="/login">
-							🔑 Login
-						</Button>
-					)}
-				</Toolbar>
-			</AppBar>
-			<Container maxWidth="lg" sx={{ mt: 4 }}>
+			<Header /> 
+			<Navbar />
+
+			{shouldShowSearch && (
+				<Container className="mt-4">
+					<Searchbar onSearch={handleSearch} />
+				</Container>
+			)}
+			
+			<Container className="my-4"> 
 				{children}
 			</Container>
-			<Box
-				component="footer"
-				sx={{ bgcolor: 'primary.main', color: 'white', p: 2, mt: 5 }}
-			>
-				<Typography variant="body2" align="center">
-					© 2025 Mi Librería Digital
-				</Typography>
-			</Box>
+
+			<Footer />
 		</>
 	);
 }

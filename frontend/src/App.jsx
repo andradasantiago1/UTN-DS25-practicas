@@ -6,10 +6,11 @@ import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import CatalogPage from './pages/CatalogPage';
 import ContactPage from './pages/ContactPage';
+import	CategoryPage from './pages/CategoryPage';
+import LoginPage from './pages/LoginPage';
 import './App.css';
 import ListaDeUsuarios from './components/ListaDeUsuarios';
 import AddBookPage from './pages/AddBookPage';
-import LoginRoute from './components/LoginRoute';
 
 function App() {
 	return (
@@ -19,8 +20,8 @@ function App() {
 					<Layout>
 						<Routes>
 							<Route path="/" element={<HomePage />} />
-							<Route path="/login" element={<LoginRoute />} />  {/*usa loginRoute p/ logica de login */}
-							
+							<Route path="/login" element={<LoginPage />} />
+							<Route path='/category/:categoryName' element={<CategoryPage/>} />
 							{/* Ruta protegida - usuarios logueados */}
 							<Route
 								path="/contact"

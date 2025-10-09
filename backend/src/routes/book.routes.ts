@@ -10,6 +10,8 @@ router.get('/',
     authenticate,
     authorize('ADMIN','USER')
     , bookController.getAllBooks);
+router.get('/featured',
+	bookController.getFeaturedBooks);
 router.get('/:id',
     authenticate,
     authorize('ADMIN', 'USER'), 
