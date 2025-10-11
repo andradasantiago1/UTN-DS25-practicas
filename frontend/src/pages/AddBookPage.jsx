@@ -8,6 +8,8 @@ function AddBookPage() {
 		try {
 			const token = getToken();
 			
+			console.log("Enviando al backend:", bookData);
+
 			const res = await fetch(`${BASE_URL}/api/books`, {
 				method: 'POST',
 				headers: {
@@ -24,7 +26,6 @@ function AddBookPage() {
 			}
 			
 			if (!res.ok) {
-				// Conservamos el manejo de errores robusto para obtener detalles del 400
 				let errorMessage = `Error al crear el libro: ${res.status} ${res.statusText}`;
 				try {
 					const clonedRes = res.clone();
@@ -33,9 +34,7 @@ function AddBookPage() {
 				} catch (e) {
 					try {
 						errorMessage += ": " + (await res.text());
-					} catch (textError) {
-						// Si todo falla, se mantiene el mensaje HTTP.
-					}
+					} catch (textError) {}
 				}
 				throw new Error(errorMessage); 
 			}
@@ -51,8 +50,12 @@ function AddBookPage() {
 	};
 
 	return (
-		<div className="add-book-page">
-			<AddBookForm onAddBook={handleAddBook} />
+		<div className="container py-5">
+			<div className="row justify-content-center">
+				<div className="col-12 col-md-8 col-lg-6">
+					<AddBookForm onAddBook={handleAddBook} />
+				</div>
+			</div>
 		</div>
 	);
 }

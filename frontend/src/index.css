@@ -1,124 +1,368 @@
-/*index.css*/
+/* ======================================= */
+/* 1. RESET Y ESTILOS BASE */
+/* ======================================= */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
-body{
-    background-color: rgb(231, 227, 227);
+body {
+	background: linear-gradient(to bottom, #f5f5f5, #e0e0e0); 
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; 
+	color: #333;
+	min-height: 100vh; 
+	display: flex;
+	flex-direction: column;
 }
 
-li{
-    display: inline;
-    margin:1rem;
-    text-decoration: none;
+li {
+	display: inline;
+	margin: 1rem;
+	text-decoration: none;
 }
 
-#cabecera{
-    background-image: url(/css-img/imgBackground.jpg);
-    text-shadow: 10px 10px 10px black;
-    font-weight: 800;
-    font-size: 3rem;
-    height: 6rem;
-    color: white;
-    text-align: center;
-}
-#logo{
-    width: 5rem;
-    height: 5rem;
-    border-radius: 20px;
-    margin-top: 0.5rem;
-    margin-left: 0.5rem;
-    float: left;
+/* ======================================= */
+/* 2. HEADER Y NAVEGACIÓN */
+/* ======================================= */
+
+#cabecera {
+	background-image: url(/css-img/imgBackground.jpg);
+	background-size: cover;
+	background-position: center;
+	text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+	font-weight: 800;
+	font-size: 2.5rem; 
+	height: 7rem; 
+	color: white;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-#menu{
-    background-color: #333;
-    padding: 2rem;
-    margin: 1rem;
-    text-align: center;
-    color: white;
+#logo {
+	width: 5rem;
+	height: 5rem;
+	border-radius: 20px;
+	margin-top: 0.5rem;
+	margin-left: 0.5rem;
+	float: left;
 }
 
-#contenido{
-    justify-content: center;
-    padding: 3rem;
-    display: flex;
-    flex-wrap: wrap;
+#menu {
+	background-color: #212529; 
+	padding: 0.8rem 1rem;
+	margin: 0;
+	text-align: center;
+	color: white;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.tema-destacado{
-    border: 1px solid grey;
-    padding: 2rem;
-    background-color: white;
-    margin: 2rem;
-}
-.tema-destacado h2 a{
-    color: #007bbb;
-    text-decoration: none;
+.large-navbar {
+	padding-top: 0.7rem; 
+	padding-bottom: 0.7rem; 
 }
 
-.book-card-link {
-    display: block;
-    text-decoration: none;
-    color: inherit;
+.large-navbar .nav-link,
+.large-navbar .navbar-text {
+	padding: 1rem 0.6rem !important; 
+	font-size: 1.15rem; 
+	font-weight: 500;
 }
 
-.libro-destacado{
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+/* ======================================= */
+/* 3. CONTENIDO PRINCIPAL Y FOOTER */
+/* ======================================= */
+
+#contenido {
+	padding: 2rem 1rem; 
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 1.5rem;
+	flex-grow: 1;
 }
 
-.libro-destacado img{
-    width: 1rem;
-    height: auto;
-    display: block;
-    margin: 0 auto 10px auto;
+#Pie {
+	background-color: #212529;
+	text-align: center;
+	color: #ccc;
+	padding: 15px 10px;
+	width: 100%;
 }
 
-.libro-dest h3{
-    text-transform: uppercase;
+.category-title {
+	margin: 2rem 0 1rem;
+	font-size: 2.2rem;
+	font-weight: 700;
+	color: #333;
+	text-align: center;
+	width: 100%; 
 }
 
-#Pie{
-    background-color: #333;
-    text-align: center;
-    color: white;
-    padding: 10px;
-    width: 100%;
+/* ======================================= */
+/* 4. ESTILOS DE BOOK CARD MEJORADOS (Hover) */
+/* ======================================= */
+
+.professional-card {
+	text-decoration: none !important;
+	color: inherit;
+	display: block; 
+	margin: 0 auto; 
 }
 
-.libros{
-    border: 3px solid black;
-    border-radius: 1rem;
-    padding: 0.3rem;
-    margin: 3rem;
-    text-align: left;
-    justify-content: center;
-    height: 200px;
-    background-color: #a7a3a3;
+.professional-card:hover .card {
+	transform: translateY(-5px) scale(1.03); 
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+	z-index: 10;
 }
 
-.libros img{
-    width: 140px;
-    height: 183px;
-    padding: 1rem;
-    border-radius: 1.5rem;
-    float: right;
+.professional-card .card {
+	transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.professional-card:hover .btn-primary {
+	background-color: #0056b3 !important;
+	border-color: #0056b3 !important;
+}
+
+#contenido .card {
+	border-radius: 12px;
+	border: none;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#contenido .card .card-img-top,
+#contenido .card img {
+	border-top-left-radius: 0.75rem; 
+	border-top-right-radius: 0.75rem;
+	min-height: 16rem;
+	object-fit: cover;
+	background-color: #e0e0e0;
+	display: block;
+}
+
+#contenido .card-body {
+	padding: 1rem;
+	text-align: center;
+}
+
+#contenido .card-body h5, 
+#contenido .card-body p {
+	margin-bottom: 0.25rem;
+}
+
+
+/* ======================================= */
+/* 5. ESTILOS NO ESPECÍFICOS (Compatibilidad) */
+/* ======================================= */
+
+.tema-destacado {
+	border: 1px solid grey;
+	padding: 2rem;
+	background-color: white;
+	margin: 2rem;
+}
+
+.tema-destacado h2 a {
+	color: #007bbb;
+	text-decoration: none;
+}
+
+.libro-destacado {
+	text-align: center;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	padding: 1rem;
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.libro-destacado img {
+	width: 1rem; 
+	height: auto;
+	display: block;
+	margin: 0 auto 10px auto;
+}
+
+.libro-dest h3 {
+	text-transform: uppercase;
+}
+
+.libros {
+	border: 3px solid black;
+	border-radius: 1rem;
+	padding: 0.3rem;
+	margin: 3rem;
+	text-align: left;
+	justify-content: center;
+	height: 200px;
+	background-color: #a7a3a3;
+}
+
+.libros img {
+	width: 140px;
+	height: 183px;
+	padding: 1rem;
+	border-radius: 1.5rem;
+	float: right;
 }
 
 #ini {
-    text-decoration: none;
-    color: hsl(201, 100%, 37%);
-    font-size: 20px;
-    display: grid;
-    place-items: left;
-    margin: 2rem 2.7rem;
+	text-decoration: none;
+	color: hsl(201, 100%, 37%);
+	font-size: 20px;
+	display: grid;
+	place-items: left;
+	margin: 2rem 2.7rem;
+}
+
+
+/* ======================================= */
+/* 6. ESTILOS DE LAYOUT Y LOGIN */
+/* ======================================= */
+
+.app-layout-sticky {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+.main-content-grow {
+	flex-grow: 1;
+}
+
+.app-layout-login {
+	background-image: url(/css-img/imgBackground.jpg); 
+	background-size: cover; 
+	background-position: center;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center; 
+	justify-content: center;
+}
+
+.login-main-content-fixed {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.login-form {
+	background: #ffffff; 
+	padding: 45px;
+	border-radius: 16px;
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 0.4); 
+	border: 1px solid #ddd; 
+	width: 100%;
+	max-width: 380px;
+	text-align: center;
+	margin: auto;
+}
+
+.login-form h2 {
+	color: #333; 
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 35px;
+}
+
+.login-form input {
+	width: 100%;
+	padding: 14px 15px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	background-color: #f9f9f9; 
+	color: #333; 
+	transition: all 0.3s ease;
+	margin-bottom: 20px;
+}
+
+.login-form input:focus {
+	border-color: #007bff; 
+	background-color: #fff;
+	outline: none;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.login-form button {
+	width: 100%;
+	background-color: #007bff; 
+	color: #ffffff;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 1.1rem;
+	font-weight: bold;
+	transition: background-color 0.3s, transform 0.1s;
+	margin-top: 15px;
+	padding: 14px;
+}
+
+.login-form button:hover {
+	background-color: #0056b3;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ======================================= */
+/* 7. ESTILOS ESPECÍFICOS DE PÁGINAS */
+/* ======================================= */
+
+.contact-card-small {
+	max-width: 550px; 
+	margin: 0 auto;
+	padding: 1rem !important; 
+}
+
+.book-placeholder {
+	padding: 0; 
+	border-top-left-radius: 0; 
+	border-top-right-radius: 0; 
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background-color: #ffffff;
+	height: 16rem;
+	width: 100%;
+}
+
+.book-placeholder-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background-color: #e0e0e0; 
+	color: #555;
+	font-size: 1.5rem;
+	font-weight: 700;
+	height: calc(100% - 10px); 
+	width: calc(100% - 20px); 
+	margin: 10px 10px 0 10px; 
+	border-radius: 0; 
+}
+
+#contenido .card .placeholder-text {
+	height: 16rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #e0e0e0; 
+	color: #555;
+	font-size: 1.5rem;
+	font-weight: 700;
 }

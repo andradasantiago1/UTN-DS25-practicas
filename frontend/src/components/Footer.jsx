@@ -1,9 +1,12 @@
 import React from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+
 function Footer() {
+    const footerClasses = `bg-dark text-white py-3`;
+
     return (
-        <footer className="bg-dark text-white py-3 mt-auto">
+        <footer className={footerClasses}>
             <Container className="text-center">
                 <Row className="justify-content-center align-items-center mb-2">
                     <Col xs={12} md={8} lg={6}>

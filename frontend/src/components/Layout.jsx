@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Header from './Header'; 
 import Footer from './Footer';
 import Navbar from './Navbar';
-import Searchbar from './Searchbar';
+// Eliminamos la importación de Searchbar, ya que se renderizará a nivel de página.
 
 function Layout({ children }) {
 	const navigate = useNavigate();
@@ -20,23 +20,28 @@ function Layout({ children }) {
 	const isAdministrativeRoute = location.pathname.startsWith('/admin');
 	const shouldShowSearch = !shouldHideSearch && !isAdministrativeRoute;
 	
+	const shouldHideNavbar = location.pathname === '/login';
+	const isLoginPage = location.pathname === '/login';
+
+	//oculta Header y Footer en el login.
+	const shouldHideHeaderOrFooter = isLoginPage;
+
 	return (
-		<>
-			<Header /> 
-			<Navbar />
+		<div className={isLoginPage ? "app-layout-login" : "app-layout-sticky"}>
+			{/* oculta Header en login */}
+			{!shouldHideHeaderOrFooter && <Header />} 
 
-			{shouldShowSearch && (
-				<Container className="mt-4">
-					<Searchbar onSearch={handleSearch} />
+			{/* oculta navbar en login */}
+			{!shouldHideNavbar && <Navbar />}
+
+			<div className={isLoginPage ? "login-main-content-fixed" : "main-content-grow"}>				
+				<Container className="my-4"> 
+					{children}
 				</Container>
-			)}
-			
-			<Container className="my-4"> 
-				{children}
-			</Container>
-
-			<Footer />
-		</>
+			</div>
+			{/* oculta footer en login */}
+			{!shouldHideHeaderOrFooter && <Footer />}
+		</div>
 	);
 }
 

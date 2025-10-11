@@ -24,12 +24,12 @@ export default function LoginPage() {
 			if (!result.success) {
 				throw new Error(result.error || "Error en login");
 			}
-
+			navigate('/', { replace: true });
 		} catch (err) {
 			console.log(err);
 			setError("root", {
 				type: "manual",
-				message: "Credenciales inválidas"
+				message: err.message || "Credenciales inválidas"
 			});
 		}
 	}
@@ -57,6 +57,9 @@ export default function LoginPage() {
 					<span className="field-error">{errors.password.message}</span>
 				)}
 			</div>
+			{errors.root && (
+				<p style={{ color: 'red', marginBottom: '15px', fontWeight: '500' }}>{errors.root.message}</p>
+			)}
 			<button type="submit" disabled={isSubmitting}>
 				{isSubmitting ? "Ingresando..." : "Ingresar"}
 			</button>

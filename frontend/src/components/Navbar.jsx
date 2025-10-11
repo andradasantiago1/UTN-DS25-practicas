@@ -15,12 +15,9 @@ function CustomNavbar() {
 	};
 
 	return (
-		<Navbar bg="dark" data-bs-theme="dark" expand="lg">
+		<Navbar bg="dark" data-bs-theme="dark" expand="lg" className="large-navbar">
 			<Container>
-				<Navbar.Brand as={Link} to="/">Librería</Navbar.Brand>
-
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
-
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto"> 
 						<Nav.Link as={Link} to="/">Inicio</Nav.Link>

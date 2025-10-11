@@ -19,9 +19,7 @@ function App() {
 				<UsuarioProvider>
 					<Layout>
 						<Routes>
-							<Route path="/" element={<HomePage />} />
 							<Route path="/login" element={<LoginPage />} />
-							<Route path='/category/:categoryName' element={<CategoryPage/>} />
 							{/* Ruta protegida - usuarios logueados */}
 							<Route
 								path="/contact"
@@ -31,6 +29,23 @@ function App() {
 									</PrivateRoute>
 								}
 							/>
+							<Route
+								path="/"
+								element={
+									<PrivateRoute>
+										<HomePage />
+									</PrivateRoute>
+								}
+							/>
+							<Route
+								path="/category/:categoryName"
+								element={
+									<PrivateRoute>
+										<CategoryPage />
+									</PrivateRoute>
+								}
+							/>
+							
 							{/* Ruta protegida - solo rol ADMIN */}
 							<Route
 								path="/catalog"
