@@ -23,7 +23,7 @@ function ListaDeUsuarios() {
 				<Col md={12} lg={10}>
 					<Card className="shadow-sm">
 						<Card.Header className="bg-primary text-white">
-							<h2 className="mb-0 fs-4">👥 Lista de Usuarios</h2>
+							<h2 className="mb-0 fs-4">Lista de Usuarios</h2>
 						</Card.Header>
 						<Card.Body>
 							{usersArray.length > 0 ? (
