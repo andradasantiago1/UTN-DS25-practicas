@@ -17,6 +17,7 @@ function CatalogPage() {
 
 		let booksToDisplay = books;
 
+		//filtrado se ejecuta inmediatamente al cambiar manualSearchTerm
 		if (manualSearchTerm) {
 			const term = manualSearchTerm.toLowerCase();
 			booksToDisplay = books.filter(book => 
@@ -36,7 +37,7 @@ function CatalogPage() {
 	if (error) return <p>Error: {error.message}</p>;
 
 	let pageTitle = "Catálogo";
-	if (manualSearchTerm) {
+	if (manualSearchTerm) { 
 		pageTitle = `Resultados de búsqueda: "${manualSearchTerm}"`;
 	}
 
@@ -58,9 +59,10 @@ function CatalogPage() {
 
 			<Row className="justify-content-center mb-4">
 				<Col xs={12} md={8} lg={6}>
-					<Searchbar 
-						initialSearchValue={manualSearchTerm} 
-						onSearch={handleSearch} 
+					<Searchbar
+						searchValue={manualSearchTerm}
+						onValueChange={handleSearch} 
+						onSearch={handleSearch}
 					/>
 				</Col>
 			</Row>

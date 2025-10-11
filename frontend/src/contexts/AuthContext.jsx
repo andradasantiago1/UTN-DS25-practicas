@@ -47,6 +47,10 @@ export function AuthProvider({ children }) {
 
 			return { success: true };
 		} catch (error) {
+			//si el error es Failed to Fetch lo redefino para cambiar el mensaje q se muestra
+			if (error instanceof TypeError || error.message.includes('Failed to fetch')) {
+				return { success: false, error: 'SERVICE_UNAVAILABLE' };
+			}
 			return { success: false, error: error.message };
 		}
 	};
@@ -55,13 +59,12 @@ export function AuthProvider({ children }) {
 		clearToken();
 		setUser(null);
 	};
-	// Verificar expiración periódicamente
 	useEffect(() => {
 		const interval = setInterval(() => {
 			if (isTokenExpired()) {
 				logout();
 			}
-		}, 60000); // Cada minuto
+		}, 60000); // cada minuto
 		return () => clearInterval(interval);
 	}, []);
 	const value = {
@@ -76,7 +79,6 @@ export function AuthProvider({ children }) {
 		canAccess: (resource) => {
 			if (!user) return false;
 			if (user.role === 'ADMIN') return true;
-			// Agregar más lógica según su sistema
 			return false;
 		}
 	};

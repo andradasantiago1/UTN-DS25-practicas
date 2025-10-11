@@ -33,7 +33,7 @@ const CategoryPage = () => {
 			booksToDisplay = targetBook ? [targetBook] : [];
 			setIsSpecificBookSearch(true);
 			setCurrentSearchTerm(targetBook ? targetBook.titulo : `ID: ${bookId}`);
-			setManualSearchTerm('');
+			setManualSearchTerm(''); 
 		} else {
 			const normalizedCategoryFromUrl = categoryName
 				.toUpperCase()
@@ -43,8 +43,8 @@ const CategoryPage = () => {
 			let categoryBooks = books.filter(book =>
 				book.categoria && book.categoria.trim() === normalizedCategoryFromUrl
 			);
-			
-			if (manualSearchTerm) {
+
+			if (manualSearchTerm) { 
 				const term = manualSearchTerm.toLowerCase();
 				categoryBooks = categoryBooks.filter(book => 
 					(book.titulo && book.titulo.toLowerCase().includes(term)) ||
@@ -64,7 +64,7 @@ const CategoryPage = () => {
 		if (!name) return 'Categoría Desconocida';
 		return name.replace(/[-_]/g, ' ').split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 	};
-	
+
 	const handleSearch = (term) => {
 		setManualSearchTerm(term);
 	};
@@ -98,8 +98,9 @@ const CategoryPage = () => {
 
 			<Row className="justify-content-center mb-4">
 				<Col xs={12} md={8} lg={6}>
-					<Searchbar 
-						initialSearchValue={manualSearchTerm} 
+					<Searchbar
+						searchValue={manualSearchTerm}
+						onValueChange={handleSearch}
 						onSearch={handleSearch}
 					/>
 				</Col>

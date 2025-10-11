@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-export const Searchbar = ({ initialSearchValue = '', onSearch }) => {
-	const [searchValue, setSearchValue] = useState(initialSearchValue);
+export const Searchbar = ({ searchValue, onSearch, onValueChange }) => {
 
 	const handleInputChange = (e) => {
-		setSearchValue(e.target.value);
+		onValueChange(e.target.value);
 	};
 
 	const handleSearchClick = () => {
@@ -28,7 +27,7 @@ export const Searchbar = ({ initialSearchValue = '', onSearch }) => {
 				aria-label="Buscar libro"
 				aria-describedby="button-addon2"
 				value={searchValue}
-				onChange={handleInputChange}
+				onChange={handleInputChange} 
 				onKeyDown={handleKeyDown}
 				style={{ borderRadius: '0.5rem 0 0 0.5rem', borderRight: 'none' }}
 			/>

@@ -22,14 +22,23 @@ export default function LoginPage() {
 			const result = await login(data.email, data.password); // usa la función login del contexto
 
 			if (!result.success) {
-				throw new Error(result.error || "Error en login");
+				let errorMessage = result.error || "Credenciales inválidas";
+
+				if (result.error === 'SERVICE_UNAVAILABLE') { //nuevo msj de error
+					errorMessage = "El servicio de inicio de sesión no está disponible en este momento. Por favor, inténtalo de nuevo más tarde.";
+				}
+				setError("root", {
+					type: "manual",
+					message: errorMessage
+				});
+				return;
 			}
 			navigate('/', { replace: true });
 		} catch (err) {
 			console.log(err);
 			setError("root", {
 				type: "manual",
-				message: err.message || "Credenciales inválidas"
+				message: err.message || "Ocurrió un error inesperado."
 			});
 		}
 	}
